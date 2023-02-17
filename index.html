@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="./starter/style.css" />
+
+  <title>5 Day Weather Dashboard</title>
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="container-fluid">
+    <div class="row navbar navbar-lght bg-lght">
+      <div class="col-12 text-center">
+        <h1>Weather Dashboard</h1>
+      </div>
+    </div>
+    <div class="row content-row">
+      <div class="col-12 col-md-3 bg-light pt-3">
+        <h4>City Search</h4>
+
+        <!-- Search Input section -->
+        <form action="">
+          <div class="form-group input-group">
+            <input type="text" class="form-control" id="city-search" placeholder="Enter city name ex. New York">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="button" id="city-search-button">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Search History Section -->
+        <div class="card">
+          <ul class="list-group list-group-flush" id="search-history">
+          </ul>
+
+          <!--Clear Saved City Section-->
+          <button id="clear-history" class="btn btn-sm btn-info hide">Clear Search History</button>
+        </div>
+      </div>
+
+      <div id="weather-content" class="col-12 col-md-9 ">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Current Weather Section -->
+            <div class="city-info border my-3 px-3 py-3">
+              <h2 id="current-city">Current Weather : <small class="text-muted" id="current-date"></small>
+              </h2>
+
+
+              <p class="mb-0">Temperature: <span id="current-temp"></span></p>
+
+              <p class="mb-0">Wind: <span id="current-wind-speed"></span></p>
+
+              <p class="mb-0">Humidity: <span id="current-humidity"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Forcast Sub-Heading -->
+            <h3>5-Day Forecast</h3>
+
+          </div>
+        </div>
+
+        <!-- Weather Forecast Section -->
+        <div id="five-day-forecast" class="row">
+          <div class="col-2">
+            <div class="card hide">
+              <div class="card-body">
+                <h5 class="card-title">Date</h5>
+                <i class="fa fa-sun"></i>
+                <p class="card-text mb-0">Temperature: </p>
+                <p class="card-text mb-0">Wind: </p>
+                <p class="card-text">Humidity: </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Moment.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
