@@ -13,3 +13,4 @@ var currentWindSpeed = $("#current-wind-speed");
 var weatherData = $("#weather-data");
 
 // Open Weather APIKey
+var APIkey = "ece4fcb8ee076cc063cd12acb3c19b54";
