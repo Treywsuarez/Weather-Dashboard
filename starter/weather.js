@@ -65,3 +65,94 @@ searchHistoryList.on("click", "li.city-btn", function (event) {
     searchHistory(value);
 
 });
+
+// Request Open Weather API based on user input
+function currentConditionsRequest(searchValue) {
+
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=metric&appid=" + APIkey;
+
+
+    // Make AJAX call
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        currentCity.text(response.name);
+        currentCity.append("<small class='text-muted' id='current-date'>");
+        $("#current-date").text("(" + currentDate + ")");
+        currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
+        currentTemperature.text(response.main.temp);
+        currentTemperature.append("&deg;C");
+        currentHumidity.text(response.main.humidity + "%");
+        currentWindSpeed.text(response.wind.speed + " m/sec");
+
+        var lat = response.coord.lat;
+        var lon = response.coord.lon;
+
+
+
+
+        //calling from APIKey
+        var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?&units=metric&appid=" + APIkey + "&lat=" + lat + "&lon=" + lon;
+
+        // AJAX call for 5-day forecast
+        $.ajax({
+            url: forecastURL,
+            method: "GET"
+        }).then(function (response) {
+            //console.log(response);
+            $('#five-day-forecast').empty();
+            for (var i = 1; i < response.list.length; i += 8) {
+
+                var forecastDateString = moment(response.list[i].dt_txt).format("ll");
+                //console.log(forecastDateString);
+
+                var forecastCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3'>");
+                var forecastCard = $("<div class='card'>");
+                var forecastCardBody = $("<div class='card-body'>");
+                var forecastDate = $("<h5 class='card-title'>");
+                var forecastIcon = $("<img>");
+                var forecastTemp = $("<p class='card-text mb-0'>");
+                var forecastWind = $("<p class='card-text mb-0'>");
+                var forecastHumidity = $("<p class='card-text mb-0'>");
+
+
+                $('#five-day-forecast').append(forecastCol);
+                forecastCol.append(forecastCard);
+                forecastCard.append(forecastCardBody);
+
+                forecastCardBody.append(forecastDate);
+                forecastCardBody.append(forecastIcon);
+                forecastCardBody.append(forecastTemp);
+
+                forecastCardBody.append(forecastWind);
+                forecastCardBody.append(forecastHumidity);
+
+                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                forecastIcon.attr("alt", response.list[i].weather[0].main)
+
+                forecastDate.text(forecastDateString);
+
+                forecastTemp.text(response.list[i].main.temp);
+                forecastTemp.prepend("Temp: ");
+                forecastTemp.append("&deg;C");
+
+                forecastWind.text(response.list[i].wind.speed);
+                forecastWind.prepend("Wind: ");
+                forecastWind.append(" m/sec ");
+
+                forecastHumidity.text(response.list[i].main.humidity);
+                forecastHumidity.prepend("Humidity: ");
+                forecastHumidity.append("%");
+
+
+
+            }
+        });
+
+    });
+
+
+
+};
