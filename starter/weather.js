@@ -14,3 +14,10 @@ var weatherData = $("#weather-data");
 
 // Open Weather APIKey
 var APIkey = "ece4fcb8ee076cc063cd12acb3c19b54";
+
+// To access city data 
+var cityList = [];
+
+// Assign and display current date from moment.js
+var currentDate = moment().format('ll');
+$("#current-date").text("(" + currentDate + ")");
