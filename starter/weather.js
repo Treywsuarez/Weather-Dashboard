@@ -21,3 +21,28 @@ var cityList = [];
 // Assign and display current date from moment.js
 var currentDate = moment().format('ll');
 $("#current-date").text("(" + currentDate + ")");
+
+// On click value added to search history
+$(document).on("submit", function () {
+    event.preventDefault();
+
+    // Value entered into search bar 
+    var searchValue = citySearchInput.val().trim();
+
+    currentConditionsRequest(searchValue)
+    searchHistory(searchValue);
+    citySearchInput.val("");
+});
+
+
+// On click value added to search history
+citySearchBtn.on("click", function (event) {
+    event.preventDefault();
+
+    // Value entered into search bar 
+    var searchValue = citySearchInput.val().trim();
+
+    currentConditionsRequest(searchValue)
+    searchHistory(searchValue);
+    citySearchInput.val("");
+});
