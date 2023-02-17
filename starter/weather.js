@@ -46,3 +46,22 @@ citySearchBtn.on("click", function (event) {
     searchHistory(searchValue);
     citySearchInput.val("");
 });
+
+
+// Clear list of cities searched
+clearHistoryBtn.on("click", function () {
+    // Empty the array
+    cityList = [];
+    // Update city list history in local storage
+    listArray();
+
+    $(this).addClass("hide");
+});
+
+// Click button in search history to add the names of cities searched
+searchHistoryList.on("click", "li.city-btn", function (event) {
+    var value = $(this).data("value");
+    currentConditionsRequest(value);
+    searchHistory(value);
+
+});
