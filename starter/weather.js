@@ -3,7 +3,7 @@
 var citySearchInput = $("#city-search");
 var citySearchBtn = $("#city-search-button");
 var clearHistoryBtn = $("#clear-history");
-var searchHistoryList = $("#search-history-list");
+var searchHistoryList = $("#search-history");
 
 // Current Weather 
 var currentCity = $("#current-city");
@@ -162,8 +162,7 @@ function searchHistory(searchValue) {
 
     // If statement for what happends when cities are searched
     if (searchValue) {
-        // Put in the array of cities
-        // if it is a new entry
+        // Put in the array of cities if new entry
         if (cityList.indexOf(searchValue) === -1) {
             cityList.push(searchValue);
 
@@ -188,3 +187,41 @@ function searchHistory(searchValue) {
     console.log(cityList);
 }
 
+// List city array into the search history sidebar
+function listArray() {
+    // Empty elements in the sidebar
+    searchHistoryList.empty();
+    // Re-populate the sidebar with each city in the array
+    cityList.forEach(function(city){
+        var searchhistoryData = $('<li class="list-group-item city-btn">');
+        searchhistoryData.attr("data-value", city);
+        searchhistoryData.text(city);
+        searchHistoryList.prepend(searchhistoryData);
+    });
+    // Update city list history in local storage
+    localStorage.setItem("cities", JSON.stringify(cityList));
+    
+}
+
+// Grab city list string from local storage and update the city list array for the search history sidebar
+function initalizeHistory() {
+    if (localStorage.getItem("cities")) {
+        cityList = JSON.parse(localStorage.getItem("cities"));
+        var lastCityData = cityList.length - 1;
+       
+        listArray();
+        // Display the last city viewed if page is refreshed
+        if (cityList.length !== 0) {
+            currentConditionsRequest(cityList[lastCityData]);
+            weatherContent.removeClass("hide");
+        }
+    }
+}
+
+
+// Check to see if there are elements in search history sidebar in order to show clear history btn
+function showClear() {
+    if (searchHistoryList.text() !== "") {
+        clearHistoryButton.removeClass("hide");
+    }
+};
