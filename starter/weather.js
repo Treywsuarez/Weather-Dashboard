@@ -2,7 +2,7 @@
 // Search Inputs 
 var citySearchInput = $("#city-search");
 var citySearchBtn = $("#city-search-button");
-var searchHistoryBtn = $("#clear-history");
+var clearHistoryBtn = $("#clear-history");
 var searchHistoryList = $("#search-history-list");
 
 // Current Weather 
@@ -156,3 +156,35 @@ function currentConditionsRequest(searchValue) {
 
 
 };
+
+// Display and save the cities searched
+function searchHistory(searchValue) {
+
+    // If statement for what happends when cities are searched
+    if (searchValue) {
+        // Put in the array of cities
+        // if it is a new entry
+        if (cityList.indexOf(searchValue) === -1) {
+            cityList.push(searchValue);
+
+            // List all of the cities from user history
+            listArray();
+            clearHistoryBtn.removeClass("hide");
+            weatherData.removeClass("hide");
+        } else {
+            // Remove the existing value from the array
+            var removeIndex = cityList.indexOf(searchValue);
+            cityList.splice(removeIndex, 1);
+
+            // Push the value again to the array
+            cityList.push(searchValue);
+
+            // List all of the cities in user history so the old entry appears at the top of the search history
+            listArray();
+            clearHistoryBtn.removeClass("hide");
+            weatherData.removeClass("hide");
+        }
+    }
+    console.log(cityList);
+}
+
